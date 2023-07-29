@@ -25,26 +25,49 @@ function formatTime(seconds) {
 }
 
 // Get the actual time that corresponds to the countdown time
-function getActualTime(timeLeft) {
-  const now = new Date(startTime.getTime() + (timeLeft * 1000));
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
+function getActualTime(interval) {
+  const timeInMilliseconds = startTime.getTime() + interval * 60 * 1000;
+  const time = new Date(timeInMilliseconds);
+  const hours = time.getHours();
+  const minutes = time.getMinutes();
+  const seconds = time.getSeconds();
+  return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+}
+
+// Function to convert time to seconds since midnight
+function timeToSeconds(time) {
+  return time.getHours() * 3600 + time.getMinutes() * 60 + time.getSeconds();
+}
+
+// Function to convert seconds since midnight to formatted time (HH:MM)
+function secondsToTime(seconds) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
   return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
 }
 
 // Update countdown lines with formatted times
-function updateCountdownLines(time) {
+function updateCountdownLines() {
+  const currentTime = new Date();
+  const timeLeft = Math.max(Math.floor((endTime - currentTime.getTime()) / 1000), 0);
+  const timerSecondsLeft = Math.max(timeLeft, 0); // Ensure it doesn't go below zero
+
+  const startTimeSeconds = timeToSeconds(startTime);
   for (const line of countdownLines) {
-    const remainingTime = time - line.time * 60;
-    line.element.textContent = remainingTime > 0 ? getActualTime(remainingTime) : "";
+    const remainingTime = timerSecondsLeft - (60 - line.time) * 60;
+    const intervalTime = startTimeSeconds + (60 - line.time) * 60;
+    line.element.textContent = remainingTime > 0 ? secondsToTime(intervalTime) : secondsToTime(startTimeSeconds);
     if (remainingTime <= 0) {
       line.element.parentNode.style.textDecoration = "initial";
     }
   }
 
   // Set the end time (1 hour after start time)
-  // endTimeDisplay.textContent = getActualTime(endTime / 1000);
+  endTimeDisplay.textContent = secondsToTime(timeToSeconds(endTime));
 }
+
+
+
 
 // Start the countdown timer
 function startTimer() {
