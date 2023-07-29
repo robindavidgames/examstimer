@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Countdown Timer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1><span id="timerDisplay">1:00:00</span></h1>
+    <div class="countdown-lines">
+      <span id="start-time">Start time: </span><span id="startTimeDisplay"></span>
+    </div>
+    <div class="countdown-lines">
+      <span>40 minutes left:</span>
+      <span id="40-minutes-time"></span>
+    </div>
+    <div class="countdown-lines">
+      <span>20 minutes left:</span>
+      <span id="20-minutes-time"></span>
+    </div>
+    <div class="countdown-lines">
+      <span>10 minutes left:</span>
+      <span id="10-minutes-time"></span>
+    </div>
+    <div class="countdown-lines">
+      <span>5 minutes left:</span>
+      <span id="5-minutes-time"></span>
+    </div>
+    <div class="countdown-lines">
+      <span id="end-time">End time: </span><span id="endTimeDisplay"></span>
+    </div>
+  </div>
+  <button id="startBtn">Start timer</button>
+  <button id="resetBtn">Reset timer</button>
+  <button id="fullScreenBtn">Full screen</button>
+  <audio id="beepSound" src="beep.wav" preload="auto"></audio>
+  <script src="script.js"></script>
+</body>
+</html>
