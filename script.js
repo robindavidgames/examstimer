@@ -66,9 +66,6 @@ function updateCountdownLines() {
   endTimeDisplay.textContent = secondsToTime(timeToSeconds(endTime));
 }
 
-
-
-
 // Start the countdown timer
 function startTimer() {
   startTime = new Date();
@@ -79,7 +76,7 @@ function startTimer() {
     secondsLeft--;
     timerDisplay.textContent = formatTime(secondsLeft);
 
-    updateCountdownLines(secondsLeft);
+    // updateCountdownLines(secondsLeft);
 
     if (secondsLeft <= 0) {
       clearInterval(timerInterval);
@@ -93,6 +90,10 @@ function startTimer() {
 
   // Set the end time
   endTimeDisplay.textContent = `${endTime.getHours().toString().padStart(2, "0")}:${endTime.getMinutes().toString().padStart(2, "0")}`;
+
+  // Set interval times
+  updateCountdownLines(secondsLeft);
+
 }
 
 
